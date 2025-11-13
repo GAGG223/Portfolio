@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio - Guilherme Augusto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a2d9a66a0a.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/906/906324.png">
+  <style>
+    html { scroll-behavior: smooth; }
+    section { scroll-margin-top: 100px; }
+
+    /* Fundo animado */
+    #background { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #000; }
+
+    /* Cursor piscando */
+    .cursor { display: inline-block; width: 3px; height: 40px; background: #D4AF37; margin-left: 4px; animation: blink 0.8s infinite; }
+    @keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }
+
+    /* Fade nos cards */
+    .fade-card { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-card.visible { opacity: 1; transform: translateY(0); }
+
+    /* Brilho na imagem */
+    .glow-img { position: relative; border-radius: 9999px; animation: pulseGlow 4s infinite alternate; overflow: hidden; }
+    @keyframes pulseGlow { 0% { box-shadow: 0 0 25px 8px rgba(212,175,55,0.4); } 50% { box-shadow: 0 0 45px 18px rgba(212,175,55,0.6); } 100% { box-shadow: 0 0 25px 8px rgba(212,175,55,0.4); } }
+
+    /* Carrossel: remove barra de rolagem */
+    #carousel { scrollbar-width: none; -ms-overflow-style: none; }
+    #carousel::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="bg-black text-white font-sans relative overflow-x-hidden">
+
+  <!-- Fundo Animado -->
+  <canvas id="background"></canvas>
+  <script>
+    const canvas = document.getElementById('background');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    function createParticles() {
+      particles = [];
+      const maxParticles = window.innerWidth < 768 ? 60 : 120;
+      for (let i = 0; i < maxParticles; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2.5 + 1,
+          speedX: (Math.random() - 0.5) * 0.4,
+          speedY: (Math.random() - 0.5) * 0.4,
+        });
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        p.x += p.speedX; p.y += p.speedY;
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+      });
+      requestAnimationFrame(animate);
+    }
+
+    createParticles(); animate();
+  </script>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 w-full bg-black/70 backdrop-blur-md z-50 shadow-lg">
+    <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-xl font-bold text-[#D4AF37]">Guilherme Augusto</h1>
+      <div class="space-x-4 md:space-x-6">
+        <a href="#sobre" class="hover:text-[#D4AF37] transition">Sobre</a>
+        <a href="#experiencia" class="hover:text-[#D4AF37] transition">Experiência</a>
+        <a href="#projetos" class="hover:text-[#D4AF37] transition">Projetos</a>
+        <a href="#contato" class="hover:text-[#D4AF37] transition">Contato</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 gap-10 relative pt-32">
+    <div class="flex justify-center mt-6">
+      <img src="Image (1).jpg" alt="Guilherme Gomes"
+        class="w-36 h-36 md:w-44 md:h-44 rounded-full border-4 border-[#D4AF37] glow-img object-cover">
+    </div>
+
+    <div class="flex flex-col items-center">
+      <h2 id="typing-text" class="text-4xl md:text-6xl font-extrabold text-[#D4AF37]"></h2>
+      <span class="cursor"></span>
+      <p class="text-lg md:text-2xl text-gray-300 mt-4 max-w-2xl">
+        Suporte Técnico em TI | Desenvolvedor Júnior | Front-End & Back-End | Infraestrutura
+      </p>
+
+      <div class="mt-16 w-full flex justify-center gap-6 flex-wrap fade-card">
+        <a href="https://github.com/GAGG223" target="_blank"
+          class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-xl shadow-md hover:shadow-[#D4AF37]/30 transition transform hover:-translate-y-1">
+          <i class="fab fa-github text-2xl"></i>
+          <span class="font-medium">GitHub</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/guilherme-augusto-gon%C3%A7alves-gomes-238082268" target="_blank"
+          class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-xl shadow-md hover:shadow-[#D4AF37]/30 transition transform hover:-translate-y-1">
+          <i class="fab fa-linkedin text-2xl"></i>
+          <span class="font-medium">LinkedIn</span>
+        </a>
+
+        <a href="Currículo  (1).pdf" download
+          class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-xl shadow-md hover:shadow-[#D4AF37]/30 transition transform hover:-translate-y-1">
+          <i class="fas fa-file-download text-2xl"></i>
+          <span class="font-medium">Baixar Currículo</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const text = "Olá, eu sou Guilherme ";
+    let index = 0;
+    const typingElement = document.getElementById("typing-text");
+
+    function typeEffect() {
+      if (index < text.length) {
+        typingElement.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeEffect, 100);
+      } else {
+        document.querySelector(".cursor").style.display = "inline-block";
+      }
+    }
+    window.addEventListener("load", typeEffect);
+  </script>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="max-w-5xl mx-auto py-20 px-6 fade-card">
+    <h2 class="text-3xl font-bold text-[#D4AF37] mb-6 border-b border-[#D4AF37] w-fit pb-2">Sobre mim</h2>
+    <p class="text-gray-300 leading-relaxed text-lg">
+      Sou formado em Análise e Desenvolvimento de Sistemas pela Faculdade ENIAC e atuo na empresa Olos na área de Tecnologia da Informação. Tenho experiência com suporte técnico, Help Desk, Service Desk e operações em Data Center, além de conhecimentos em infraestrutura de TI e desenvolvimento de sistemas.
+      Com 20 anos, sou um profissional dedicado, curioso e em constante aprendizado, buscando sempre aprimorar minhas habilidades técnicas e oferecer soluções que contribuam para a estabilidade e eficiência do ambiente tecnológico. Gosto de trabalhar em equipe, resolver problemas de forma prática e aprender novas tecnologias que ampliem meu desempenho na área.
+    </p>
+  </section>
+
+  <!-- EXPERIÊNCIA -->
+  <section id="experiencia" class="max-w-5xl mx-auto py-20 px-6 fade-card">
+    <h2 class="text-3xl font-bold text-[#D4AF37] mb-6 border-b border-[#D4AF37] w-fit pb-2">Experiência</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-gray-900/70 p-6 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-[#D4AF37]/30 transition">
+        <h3 class="text-xl font-semibold">Estagiário em T.I</h3>
+        <p class="text-gray-400">Empresa: Olos | Fev/2025 - Ago/2025</p>
+        <p class="mt-2 text-gray-300">Atuei como estagiário de Tecnologia da Informação, realizando formatação e manutenção de notebooks, instalação e desinstalação de aplicações corporativas e suporte técnico aos usuários. Também desempenho tarefas voltadas à segurança da informação, participo de atividades em data center e apoio na administração de ambientes em nuvem Microsoft Azure e Active Directory (AD). Busco constantemente aprimorar meus conhecimentos e contribuir para a eficiência e segurança da infraestrutura de TI.</p>
+      </div>
+      <div class="bg-gray-900/70 p-6 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-[#D4AF37]/30 transition">
+        <h3 class="text-xl font-semibold">Jovem Aprendiz</h3>
+        <p class="text-gray-400">Empresa: Olos | Ago/2025 - Presente</p>
+        <p class="mt-2 text-gray-300">Atuo na área de TI, realizo formatação e manutenção de notebooks, instalação e remoção de softwares, além de acompanhar tarefas de segurança e auxiliar em atividades no data center. Tenho contato com plataformas como Microsoft Azure e Active Directory (AD), desenvolvendo habilidades práticas em infraestrutura e suporte técnico. Estou sempre em busca de aprendizado e crescimento profissional no setor de tecnologia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos" class="max-w-6xl mx-auto py-20 px-6 fade-card relative">
+    <h2 class="text-3xl font-bold text-[#D4AF37] mb-10 border-b border-[#D4AF37] w-fit pb-2">Projetos</h2>
+    <div class="relative flex items-center">
+      <button id="prev" class="absolute left-[-3rem] md:left-[-4rem] bg-[#D4AF37]/80 hover:bg-[#D4AF37]/70 text-white text-3xl p-4 rounded-full shadow-lg hover:shadow-[#D4AF37]/60 transition-all duration-300 animate-pulse z-20">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div id="carousel" class="flex gap-8 w-full overflow-x-hidden scroll-smooth">
+        <div class="min-w-full md:min-w-[48%] bg-gray-900/70 p-6 rounded-2xl shadow-lg hover:scale-105 hover:shadow-[#D4AF37]/30 transition">
+          <h3 class="text-xl font-semibold mb-2">Recicla Game</h3>
+          <p class="text-gray-300 mb-4">Desenvolvi um jogo educativo sobre reciclagem utilizando a plataforma Construct 3, no qual o personagem principal coleta diferentes tipos de lixo e os deposita corretamente nas lixeiras correspondentes. O objetivo do projeto foi promover a conscientização ambiental por meio da gamificação, aplicando lógica de programação e design interativo.</p>
+          <video controls muted class="rounded-lg w-full mt-3 border border-[#D4AF37]/40 shadow-lg">
+            <source src="game.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+        </div>
+        <div class="min-w-full md:min-w-[48%] bg-gray-900/70 p-6 rounded-2xl shadow-lg hover:scale-105 hover:shadow-[#D4AF37]/30 transition">
+          <h3 class="text-xl font-semibold mb-2">Dashboard – Consultoria Odontológica</h3>
+          <p class="text-gray-300 mb-4">Criei um painel interativo em Microsoft Excel para uma clínica odontológica, com o intuito de facilitar o acompanhamento de dados como agendamentos, pacientes, atendimentos e indicadores de desempenho. O projeto envolveu o uso de fórmulas, tabelas dinâmicas e gráficos para análise visual e tomada de decisão.</p>
+          <img src="dashboard.png" alt="Dashboard de Concessionária"
+            class="rounded-lg w-full mt-3 border border-[#D4AF37]/40 shadow-lg object-cover">
+        </div>
+        <div class="min-w-full md:min-w-[48%] bg-gray-900/70 p-6 rounded-2xl shadow-lg hover:scale-105 hover:shadow-[#D4AF37]/30 transition">
+          <h3 class="text-xl font-semibold mb-2">Site Chula Burguer</h3>
+          <p class="text-gray-300 mb-4">Desenvolvi o site institucional da hamburgueria Chula Burguer, utilizando HTML e CSS para criar uma interface moderna, responsiva e de fácil navegação. O foco do projeto foi trabalhar conceitos de front-end, estruturação de conteúdo e identidade visual da marca.</p>
+          <video controls muted class="rounded-lg w-full mt-3 border border-[#D4AF37]/40 shadow-lg">
+            <source src="site.chula.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+        </div>
+        <div class="min-w-full md:min-w-[48%] bg-gray-900/70 p-6 rounded-2xl shadow-lg hover:scale-105 hover:shadow-[#D4AF37]/30 transition">
+          <h3 class="text-xl font-semibold mb-2">Tela de Login Chula Burguer</h3>
+          <p class="text-gray-300 mb-4">Como extensão do site da Chula Burguer, implementei uma tela de login funcional para aprimorar a experiência do usuário e aplicar práticas de design e usabilidade. O projeto reforçou meus conhecimentos em estruturação de formulários e layout responsivo.</p>
+          <video controls muted class="rounded-lg w-full mt-3 border border-[#D4AF37]/40 shadow-lg">
+            <source src="login.chulaa.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+        </div>
+        <div class="min-w-full md:min-w-[48%] bg-gray-900/70 p-6 rounded-2xl shadow-lg hover:scale-105 hover:shadow-[#D4AF37]/30 transition">
+          <h3 class="text-xl font-semibold mb-2">Site de um Clube Automotivo</h3>
+          <p class="text-gray-300 mb-4">Desenvolvi o site oficial do clube automotivo DMG Low Family, voltado para entusiastas de carros rebaixados e personalização automotiva. O objetivo do projeto é divulgar o clube, seus produtos, eventos e canais de contato de forma moderna e acessível.
+
+            O site foi criado utilizando as linguagens e tecnologias HTML5, CSS3, Tailwind CSS e JavaScript, aplicando conceitos de responsividade, interatividade e design visual atraente.</p>
+          <video controls muted class="rounded-lg w-full mt-3 border border-[#D4AF37]/40 shadow-lg">
+            <source src="site dmg.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+        </div>
+      </div>
+
+      <button id="next" class="absolute right-[-3rem] md:right-[-4rem] bg-[#D4AF37]/80 hover:bg-[#D4AF37]/70 text-white text-3xl p-4 rounded-full shadow-lg hover:shadow-[#D4AF37]/60 transition-all duration-300 animate-pulse z-20">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <script>
+    const carousel = document.getElementById('carousel');
+    const next = document.getElementById('next');
+    const prev = document.getElementById('prev');
+    const cardGap = 32;
+    const cardWidth = carousel.querySelector('.min-w-full').clientWidth + cardGap;
+
+    next.addEventListener('click', () => carousel.scrollBy({ left: cardWidth, behavior: 'smooth' }));
+    prev.addEventListener('click', () => carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' }));
+  </script>
+
+  <!-- CONTATO -->
+  <section id="contato" class="max-w-4xl mx-auto text-center py-20 px-6 fade-card">
+    <h2 class="text-3xl font-bold text-[#D4AF37] mb-6 border-b border-[#D4AF37] w-fit mx-auto pb-2">Contato</h2>
+    <p class="text-gray-300 mb-6">Gostou do meu trabalho? Entre em contato comigo!</p>
+    <a href="mailto:guilhermeaugusto2148@gmail.com" class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl shadow-md hover:shadow-[#D4AF37]/30 transition transform hover:-translate-y-1">
+      Enviar mensagem
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-center py-6 text-gray-400 border-t border-gray-800">
+    © 2025 Guilherme Gomes. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    const cards = document.querySelectorAll('.fade-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    cards.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
+
